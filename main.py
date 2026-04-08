@@ -1,7 +1,7 @@
 from config import load_config
 from search import search_tracks
 from downloader import download_track
-from library import init_db, track_exists, save_track
+from library import init_db, track_exists, url_exists, save_track
 import os
 
 
@@ -35,6 +35,10 @@ def run():
 
             if track_exists(title):
                 print(f"⏭️  Already in library: {title}")
+                continue
+
+            if url_exists(url):
+                print(f"⏭️  URL already downloaded: {title}")
                 continue
 
             print(f"⬇️  Downloading: {title}")
