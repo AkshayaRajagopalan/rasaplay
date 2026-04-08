@@ -16,12 +16,19 @@ def download_track(url, title, download_dir="downloads"):
         "quiet": False,
     }
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        print(f"✅ Downloaded: {title}")
+        return True
 
-    print(f"✅ Downloaded: {title}")
+    except yt_dlp.utils.DownloadError as e:
+        print(f"❌ Download failed: {title}")
+        print(f"   Reason: {e}")
+        return False
 
-
-if __name__ == "__main__":
-    test_url = "https://www.youtube.com/watch?v=a1NTKbiA3xg"
-    download_track(test_url, "AR Rahman Test")
+    except Exception as e:
+        print(f"❌ Unexpected error for: {title}")
+        print(f"   Reason: {e}")
+        return False
+    

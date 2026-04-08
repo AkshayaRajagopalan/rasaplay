@@ -38,17 +38,18 @@ def run():
                 continue
 
             print(f"⬇️  Downloading: {title}")
-            download_track(url, title, download_dir)
+            success = download_track(url, title, download_dir)
 
-            file_path = os.path.join(download_dir, f"{title}.mp3")
-            save_track(
-                title=title,
-                artist=seed["artist"],
-                genre=seed["genre"],
-                duration=duration,
-                file_path=file_path,
-                source_url=url
-            )
+            if success:
+                file_path = os.path.join(download_dir, f"{title}.mp3")
+                save_track(
+                    title=title,
+                    artist=seed["artist"],
+                    genre=seed["genre"],
+                    duration=duration,
+                    file_path=file_path,
+                    source_url=url
+                )
 
     print("\n✅ RasaPlay done!")
 
