@@ -38,6 +38,13 @@ def track_exists(title):
     conn.close()
     return result is not None
 
+def url_exists(source_url):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM tracks WHERE source_url = ?", (source_url,))
+    result = cursor.fetchone()
+    conn.close()
+    return result is not None
 
 def save_track(title, artist, genre, duration, file_path, source_url):
     conn = sqlite3.connect(DB_PATH)
